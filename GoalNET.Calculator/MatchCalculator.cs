@@ -27,10 +27,10 @@
         /// </summary>
         public static string GetFormGuide(IEnumerable<MatchResult> recentMatches, string teamName)
         {
-            var results = recentMatches.Select(m =>
+            IEnumerable<string> results = recentMatches.Select(m =>
             {
                 bool isHome = m.HomeTeam.Equals(teamName, StringComparison.OrdinalIgnoreCase);
-                var matchResult = CalculateMatchScore(m.HomeGoals, m.AwayGoals);
+                MatchOutcome matchResult = CalculateMatchScore(m.HomeGoals, m.AwayGoals);
 
                 if (matchResult == MatchOutcome.Draw) return "D";
                 if (isHome && matchResult == MatchOutcome.HomeWin) return "W";
@@ -48,8 +48,8 @@
         /// <returns>A ranking table reflecting the aggregated results of the provided matches.</returns>
         public static RankingTable CalculateRankingTable(IEnumerable<MatchResult> matchResults)
         {
-            var rankingTable = new RankingTable();
-            foreach (var match in matchResults)
+            RankingTable rankingTable = new();
+            foreach (MatchResult match in matchResults)
             {
                 UpdateTeamStats(rankingTable, match.HomeTeam, match.HomeGoals, match.AwayGoals);
                 UpdateTeamStats(rankingTable, match.AwayTeam, match.AwayGoals, match.HomeGoals);
@@ -76,7 +76,7 @@
         /// <param name="awayGoals">The number of goals scored by the away team.</param>
         private static void UpdateTeamStats(RankingTable rankingTable, string homeTeam, int homeGoals, int awayGoals)
         {
-            var teamEntry = rankingTable.Entries.FirstOrDefault(e => e.TeamName == homeTeam);
+            TableEntry teamEntry = rankingTable.Entries.First(e => e.TeamName == homeTeam);
             if (teamEntry == null)
             {
                 teamEntry = new TableEntry(homeTeam, 0, 0);

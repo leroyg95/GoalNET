@@ -9,17 +9,10 @@ namespace GoalNET.Calculator
         public List<TableEntry> Entries { get; private set; } = [];
     }
 
-    public class TableEntry
+    public class TableEntry(string teamName, int points, int goalDifference)
     {
-        public TableEntry(string teamName, int points, int goalDifference)
-        {
-            TeamName = teamName;
-            Points = points;
-            GoalDifference = goalDifference;
-        }
-
-        public string TeamName { get; set; }
-        public int Points { get; set; }
-        public int GoalDifference { get; set; }
+        public string TeamName { get; set; } = teamName;
+        public int Points { get; set; } = points;
+        public int GoalDifference { get; set; } = goalDifference;
     }
 }
