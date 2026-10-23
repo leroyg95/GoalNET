@@ -47,5 +47,22 @@ namespace GoalNET.Tests
             var formGuide = MatchCalculator.GetFormGuide(recentMatches, "TeamA");
             Assert.Equal("W-D-L-W-W", formGuide);
         }
+
+        [Fact]
+        public void CalculateRankingTable_Returns_Correct_Ranking()
+        {
+            var matchResults = new List<MatchResult>
+            {
+                new("TeamA", "TeamB", 2, 1),
+                new("TeamA", "TeamC", 1, 1),
+                new("TeamD", "TeamA", 3, 0),
+                new("TeamA", "TeamE", 4, 2),
+                new("TeamF", "TeamA", 0, 1)
+            };
+            var rankingTable = MatchCalculator.CalculateRankingTable(matchResults);
+            Assert.NotNull(rankingTable);
+            Assert.Equal(6, rankingTable.Entries.Count);
+            Assert.Equal("TeamA", rankingTable.Entries.First().TeamName);
+        }
     }
 }
