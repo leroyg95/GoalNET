@@ -76,7 +76,7 @@
         /// <param name="awayGoals">The number of goals scored by the away team.</param>
         private static void UpdateTeamStats(RankingTable rankingTable, string homeTeam, int homeGoals, int awayGoals)
         {
-            TableEntry teamEntry = rankingTable.Entries.First(e => e.TeamName == homeTeam);
+            TableEntry? teamEntry = rankingTable.Entries.FirstOrDefault(e => e.TeamName == homeTeam);
             if (teamEntry == null)
             {
                 teamEntry = new TableEntry(homeTeam, 0, 0);
