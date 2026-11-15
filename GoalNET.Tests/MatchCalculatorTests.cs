@@ -53,7 +53,7 @@ namespace GoalNET.Tests
         {
             List<MatchResult> matchResults =
             [
-                new("TeamA", "TeamB", 2, 1),
+                new("TeamA", "TeamB", 6, 1),
                 new("TeamA", "TeamC", 1, 1),
                 new("TeamD", "TeamA", 3, 0),
                 new("TeamA", "TeamE", 4, 2),
@@ -62,7 +62,13 @@ namespace GoalNET.Tests
             RankingTable rankingTable = MatchCalculator.CalculateRankingTable(matchResults);
             Assert.NotNull(rankingTable);
             Assert.Equal(6, rankingTable.Entries.Count);
-            Assert.Equal("TeamA", rankingTable.Entries.First().TeamName);
+            Assert.Equal("TeamA", rankingTable.Entries[0].TeamName);
+            Assert.Equal("TeamD", rankingTable.Entries[1].TeamName);
+            Assert.Equal("TeamC", rankingTable.Entries[2].TeamName);
+            Assert.Equal("TeamF", rankingTable.Entries[3].TeamName);
+            Assert.Equal("TeamE", rankingTable.Entries[4].TeamName);
+            Assert.Equal("TeamB", rankingTable.Entries[5].TeamName);
+
         }
     }
 }
